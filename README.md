@@ -38,8 +38,7 @@ O projeto possui uma interface de utilizador simples via terminal que permite al
 
 ### 1. Clonar o Repositório
 ```bash
-git clone [https://github.com/Schatten900/IPI-Proj2](https://github.com/Schatten900/IPI-Proj2)
-cd o-teu-repositorio
+git clone https://github.com/Schatten900/IPI-Proj2
 ```
 ### 2. Configurar o ambiente (Venv)
 Cria e ativa o ambiente virtual isolado para evitar conflitos de dependências:
