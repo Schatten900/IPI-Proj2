@@ -51,19 +51,19 @@ def elementos_conexos(img_binarizada : np.ndarray):
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(img_binarizada, 8, cv2.CV_32S)
 
     # Iterar sobre os elementos conexos e salvar o de maior tamanho
-    maior_area = 0
-    maior_indice = -1
+    components = []
 
     for i in range(1,num_labels):
         area = stats[i,cv2.CC_STAT_AREA]
+        components.append((area,i))
 
-        if area > maior_area:
-            print(f"Objeto {i} - Area: {area}")
-            maior_area = area
-            maior_indice = i
+    components.sort(reverse=True)
+
+    # O maior componente é o contorno do cerebro e o segundo maior é o tumor
+    _,indice_tumor = components[1]
 
     mascara = np.zeros_like(img_binarizada)
-    mascara[labels == maior_indice] = 255
+    mascara[labels == indice_tumor] = 255
 
     return mascara
 
@@ -86,14 +86,14 @@ def main_q1(img : np.ndarray):
     mostrar_imagem(img_binarizada,"Brain binarizado")
 
     # Aplicar operacoes morfologicas
-    img_aberta = aplicar_abertura(img_binarizada)
+    img_aberta = aplicar_abertura(img_binarizada)   # Remove contorno
     mostrar_imagem(img_aberta,"Abertura")
 
-    img_fechada = aplicar_fechamento(img_aberta)
+    img_fechada = aplicar_fechamento(img_aberta)    # Deixa o tumor mais nitido
     mostrar_imagem(img_fechada,"Fechamento")
 
     # Visualizacao do tumor
-    tumor = elementos_conexos(img_fechada)
+    tumor = elementos_conexos(img_fechada)          # retorna a mascara binarizada do tumor
     mostrar_imagem(tumor,"Tumor em destaque")
 
     

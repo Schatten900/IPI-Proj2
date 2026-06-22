@@ -11,7 +11,7 @@ def run_q1() -> None:
 
 def run_q2() -> None:
     print("Rodando [Q2]")
-    img = abrir_imagem("img/onion.jpg",grayscale=True)
+    img = abrir_imagem("img/onion.jpg",grayscale=False)
     q2.main_q2(img)
 
 
