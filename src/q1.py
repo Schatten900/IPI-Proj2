@@ -35,6 +35,10 @@ def aplicar_filtro_mediana(img : np.ndarray) -> np.ndarray:
 #   Utils
 #======================
 
+def mostrar_histograma():
+    pass
+
+
 def binarizar_imagem(img : np.ndarray, valor_limiar : int) -> np.ndarray:
     # Apos identificar o valor medio do histograma binarize a imagem
     _, binarizado = cv2.threshold(img,valor_limiar,255,cv2.THRESH_BINARY)
@@ -42,7 +46,10 @@ def binarizar_imagem(img : np.ndarray, valor_limiar : int) -> np.ndarray:
 
 def limiar_histograma(img : np.ndarray) -> int:
     # Identifique o histograma e o valor medio do limiar
+    hist = cv2.calcHist([img],[0],None,[256],[0,256])
+
     limiar, _ = cv2.threshold(img,0,255,cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    print(f"Limiar escolhido pelo Otsu: {int(limiar)}")
     return int(limiar)
 
 
